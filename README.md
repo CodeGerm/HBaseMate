@@ -1,0 +1,2 @@
+# HBaseMate
+Optimized HBase access 
