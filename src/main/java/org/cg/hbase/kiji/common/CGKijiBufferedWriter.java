@@ -320,6 +320,24 @@ public class CGKijiBufferedWriter extends TimerTask implements
 			updateBuffer(entityId, hbaseColumnName.getFamily(),
 					hbaseColumnName.getQualifier(), timestamp, encoded);
 	}
+	
+	public <T> void putRowData(EntityId entityId, List<BatchObject<T>> rowData) 
+			throws IOException {
+		
+		for (BatchObject<T> obj : rowData) {
+			put(entityId, obj.getFamily(), obj.getQualifier(), obj.getValue());
+		}
+		increaseNumber();
+	}
+	
+	public <T> void putRowData(EntityId entityId, List<BatchObject<T>> rowData, long timestamp) 
+			throws IOException {
+		
+		for (BatchObject<T> obj : rowData) {
+			put(entityId, obj.getFamily(), obj.getQualifier(), timestamp, obj.getValue());
+		}
+		increaseNumber();
+	}
 
 	// ----------------------------------------------------------------------------------------------
 	// Deletes
